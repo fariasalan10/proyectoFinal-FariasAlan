@@ -1,0 +1,221 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Source Sans 3", sans-serif;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+body {
+  background-color: black;
+}
+main {
+  width: 80%;
+  margin: auto;
+  padding: 20px 0 0 0;
+}
+main ul {
+  margin-top: 10px;
+}
+.boton {
+  text-decoration: none;
+  display: inline-block;
+  padding: 10px;
+  color: #2fb4cc;
+  border: 1px solid #2fb4cc;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 400ms ease;
+}
+.btnCategoria {
+  cursor: pointer;
+}
+.seleccionado {
+  color: #000;
+}
+#botonComprar {
+  text-decoration: none;
+  display: inline-block;
+  padding: 10px;
+  color: #2fb4cc;
+  border: 1px solid #2fb4cc;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 400ms ease;
+}
+#botonComprar:hover {
+  background: #2fb4cc;
+  color: #e8e8e8;
+}
+
+.boton.seleccionado {
+  background: #2fb4cc;
+  color: #e8e8e8;
+}
+section {
+  position: fixed;
+  box-shadow: -6px -2px 25px -13px rgba(0, 0, 0, 0.15);
+  width: 340px;
+  height: 100%;
+  bottom: 0;
+  right: 0;
+  padding: 30px;
+  transition: all 0.2s;
+  background-color: rgba(52, 52, 52, 0.635);
+  backdrop-filter: blur(10px);
+}
+.upper {
+  text-transform: uppercase;
+}
+
+.container__frase {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  margin-top: 50px;
+  text-align: center;
+}
+
+.container__frase--h1 {
+  color: #e8e8e8;
+  margin: 0%;
+  font-size: 40px;
+}
+
+.container__parraf {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+}
+
+.container__parraf--p {
+  color: rgba(232, 232, 232, 0.6352941176);
+  margin: 0%;
+  font-size: 20px;
+}
+section h1 {
+  position: absolute;
+  top: 90%;
+  right: 360px;
+  display: block;
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: rgb(255, 255, 255);
+  box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.2);
+  background: url("./img/carrito.png") no-repeat #244ced;
+  background-size: 60%;
+  background-position: 9px center;
+}
+section h1 span {
+  display: block;
+  background-color: #d15280;
+  border-radius: 150px;
+  padding: 5px;
+  width: 30px;
+  text-align: center;
+  font-size: 14px;
+  margin: -10px 0 0 30px;
+}
+.fondo {
+  background-color: rgb(137, 136, 136);
+}
+.ocultar {
+  right: -340px;
+  transition: all 0.2s;
+}
+#productos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 3px;
+  grid-row-gap: 5px;
+  height: auto;
+}
+
+#scroll {
+  max-height: 90%;
+  overflow-y: auto;
+}
+
+.container1 {
+  width: 100%;
+  display: flex;
+  max-width: 1100px;
+}
+.card {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 7px;
+  margin-bottom: 7px;
+}
+
+.card1 {
+  width: 100%;
+  margin: 10px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #e8e8e8;
+  box-shadow: 0px 1px 0px rgba(231, 220, 220, 0.2);
+  transition: all 400ms ease;
+  cursor: default;
+}
+
+.card1:hover {
+  box-shadow: 5px 5px 20px rgba(255, 255, 255, 0.2);
+  transform: translateY(-3%);
+}
+
+.card1 img {
+  width: 100%;
+  height: auto;
+}
+
+.card1 .contenido {
+  padding: 15px;
+  text-align: center;
+}
+
+#totalCarrito,
+#totalStyle {
+  text-align: center;
+  color: #2fb4cc;
+  font-size: 25px;
+}
+
+.card1 .contenido p {
+  line-height: 1.5;
+  color: rgb(87, 83, 83);
+}
+
+.card1 .contenido .h3 {
+  font-weight: 400;
+  margin-bottom: 15px;
+}
+
+.botonCarrito {
+  text-decoration: none;
+  display: inline-block;
+  padding: 10px;
+  color: #2fb4cc;
+  border: 1px solid #2fb4cc;
+  border-radius: 5px;
+  transition: all 400ms ease;
+}
+.boton:hover {
+  background: #2fb4cc;
+  color: #e8e8e8;
+}
+.botonCarrito:hover {
+  background: #2fb4cc;
+  color: #e8e8e8;
+}
+.tituloCarritoVacio {
+  color: rgba(255, 255, 255, 0.661);
+  font-size: 20px;
+  text-align: center;
+}
