@@ -8,8 +8,7 @@ class Producto {
   }
 }
 
-// Clase para que simula la base de datos del e-commerce, acá van a estar
-// todos los productos de nuestro catálogo
+//Base de datos donde almacenamos todos nuestros productos
 class BaseDeDatos {
   constructor() {
     //
@@ -18,7 +17,7 @@ class BaseDeDatos {
     this.cargarRegistrosPorCategoria();
   }
 
-  // Carga los productos por categorías en la API
+  // Cargamos productos por categorías
   async cargarRegistrosPorCategoria(categoria = this.categoriaSeleccionada) {
     // Loader
     mostrarLoader();
@@ -41,11 +40,11 @@ class BaseDeDatos {
       this.productos.push(producto);
     }
     cargarProductos(this.productos);
-    // Cierra todos los sweet alert que estén activos
+    // Cerramos librería sweetAlert activa
     Swal.close();
   }
 
-  // Para el buscador, buscar productos por nombre en la API
+  // Buscamos productos por nombre
   async cargarRegistrosPorNombre(palabra) {
     // Loader
     mostrarLoader();
@@ -68,11 +67,11 @@ class BaseDeDatos {
       this.productos.push(producto);
     }
     cargarProductos(this.productos);
-    // Cierra todos los sweet alert que estén activos
+    // Cerramos librería sweetAlert activa
     Swal.close();
   }
 
-  // Nos devuelve todo el catálogo de productos
+  // Traemos el catálogo completo
   traerRegistros() {
     return this.productos;
   }
@@ -83,21 +82,21 @@ class BaseDeDatos {
   }
 }
 
-// Clase carrito que nos sirve para manipular los productos de nuestro carrito
+// Clase que usamos para manipular el carrito
 class Carrito {
   constructor() {
     // Storage
     const carritoStorage = JSON.parse(localStorage.getItem("carrito"));
-    // Array donde van a estar almacenados todos los productos del carrito
+    // Array donde almacenamos los productos que agg al carrito
     this.carrito = carritoStorage || [];
-    this.total = 0; // Suma total de los precios de todos los productos
-    this.cantidadProductos = 0; // La cantidad de productos que tenemos en el carrito
+    this.total = 0; // Total de los precios
+    this.cantidadProductos = 0; // Cantidad de productos
     // Llamo a listar apenas de instancia el carrito para aplicar lo que
     // hay en el storage (en caso de que haya algo)
     this.listar();
   }
 
-  // Método para saber si el producto ya se encuentra en el carrito
+  // El prod ya está en el carrito?
   estaEnCarrito({ id }) {
     return this.carrito.find((producto) => producto.id === id);
   }
@@ -105,12 +104,11 @@ class Carrito {
   // Agregar al carrito
   agregar(producto) {
     const productoEnCarrito = this.estaEnCarrito(producto);
-    // Si no está en el carrito, le mando eun push y le agrego
-    // la propiedad "cantidad"
+    // Si no está en el carrito, lo agg y le ponemos la propiedad "cantidad"
     if (!productoEnCarrito) {
       this.carrito.push({ ...producto, cantidad: 1 });
     } else {
-      // De lo contrario, si ya está en el carrito, le sumo en 1 la cantidad
+      // Si ya está en el carrito, le sumamos 1
       productoEnCarrito.cantidad++;
     }
     // Actualizo el storage
@@ -121,14 +119,13 @@ class Carrito {
 
   // Quitar del carrito
   quitar(id) {
-    // Obento el índice de un producto según el ID, porque el
-    // método splice requiere el índice
+    // Obtengo el índice de un producto según el ID, para el splice
     const indice = this.carrito.findIndex((producto) => producto.id === id);
     // Si la cantidad es mayor a 1, le resto la cantidad en 1
     if (this.carrito[indice].cantidad > 1) {
       this.carrito[indice].cantidad--;
     } else {
-      // Y sino, borramos del carrito el producto a quitar
+      // Y sino, borramos del carrito el producto
       this.carrito.splice(indice, 1);
     }
     // Actualizo el storage
@@ -146,7 +143,7 @@ class Carrito {
     this.listar();
   }
 
-  // Renderiza todos los productos en el HTML
+  // Mostrar todos los productos en el HTML
   listar() {
     // Reiniciamos variables
     this.total = 0;
@@ -165,7 +162,7 @@ class Carrito {
           </div>
         </div>
         `;
-      // Actualizamos los totales
+      // Actualizamos totales
       this.total += producto.precio * producto.cantidad;
       this.cantidadProductos += producto.cantidad;
     }
@@ -173,21 +170,20 @@ class Carrito {
       // Botón comprar visible
       botonComprar.style.display = "block";
     } else {
-      // Botón comprar invisible
+      // Botón comprar invisible + frase comprá algo
       divCarrito.innerHTML += `<h2 class="tituloCarritoVacio">¡El producto que tanto deseás, encontralo en nuestra tienda!</h2>`;
       botonComprar.style.display = "none";
     }
-    // Como no se cuantos productos tengo en el carrito, debo
-    // asignarle los eventos de forma dinámica a cada uno
-    // Primero hago una lista de todos los botones con .querySelectorAll
+    // Asignamos eventos a cada producto
+    // Hacemos una lista de todos los botones
     const botonesQuitar = document.querySelectorAll(".btnQuitar");
-    // Después los recorro uno por uno y les asigno el evento a cada uno
+    // Recorremos y le asignamos el evento a cada uno
     for (const boton of botonesQuitar) {
       boton.addEventListener("click", (event) => {
         event.preventDefault();
         // Obtengo el id por el dataset (está asignado en this.listar())
         const idProducto = boton.dataset.id;
-        // Llamo al método quitar pasándole el ID del producto
+        // Llamamos al método quitar pasándole el ID del producto
         this.quitar(idProducto);
       });
     }
@@ -207,10 +203,10 @@ const botonCarrito = document.querySelector("section h1");
 const botonComprar = document.querySelector("#botonComprar");
 const botonesCategorias = document.querySelectorAll(".btnCategoria");
 
-// Instanciamos la base de datos
+// Instanciamos base de datos
 const bd = new BaseDeDatos();
 
-// Instaciamos la clase Carrito
+// Instanciamos clase Carrito
 const carrito = new Carrito();
 
 // Botones de categorías
@@ -226,10 +222,10 @@ botonesCategorias.forEach((boton) => {
   });
 });
 
-// Mostramos el catálogo de la base de datos apenas carga la página
+// Mostramos el catálogo de prod de la base de datos apenas carga la página
 cargarProductos(bd.traerRegistros());
 
-// Función para mostrar para renderizar productos del catálogo o buscador
+// Función para mostrar productos del catálogo o buscador
 function cargarProductos(productos) {
   // Vacíamos el div
   divProductos.innerHTML = "";
@@ -253,19 +249,18 @@ function cargarProductos(productos) {
   // Lista dinámica con todos los botones que haya en nuestro catálogo
   const botonesAgregar = document.querySelectorAll(".btnAgregar");
 
-  // Recorremos botón por botón de cada producto en el catálogo y le agregamos
-  // el evento click a cada uno
+  // Recorremos los botones de cada producto y le agregamos el evento click a cada uno
   for (const boton of botonesAgregar) {
     boton.addEventListener("click", (event) => {
-      // Evita el comportamiento default de HTML
+      // Prevenimos comportamiento default
       event.preventDefault();
-      // Guardo el dataset ID que está en el HTML del botón Agregar al carrito
+      // Guardamos el dataset ID que está en el HTML del botón Agregar al carrito
       const idProducto = boton.dataset.id;
       // Uso el método de la base de datos para ubicar el producto según el ID
       const producto = bd.registroPorId(idProducto);
-      // Llama al método agregar del carrito
+      // Llamamos al método agregar del carrito
       carrito.agregar(producto);
-      // Toastify
+      // Libreria
       Toastify({
         text: `Se ha añadido ${producto.nombre} al carrito`,
         gravity: "bottom",
@@ -278,7 +273,7 @@ function cargarProductos(productos) {
   }
 }
 
-// Función para mostrar el loader
+// Función para mostrar el loader (libreria Sweet Alert)
 function mostrarLoader() {
   Swal.fire({
     title: "Espere",
